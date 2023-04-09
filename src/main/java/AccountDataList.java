@@ -94,21 +94,21 @@ public class AccountDataList {
         return result;
     }
 
-    public ArrayList<AccountData> searchByValue(BigDecimal value) throws DataNotFoundException {
+    public ArrayList<AccountData> searchByValue(double value) throws DataNotFoundException {
         if (data.size() == 0) throw new DataNotFoundException("Аккаунт со значением " + value +
                 " не зарегистрирован.");
         Long left = (long) -1, right = (long) data.size();
         Long m = 0L;
         while (right - left > 1) {
             m = (left + right) / 2;
-            if (data.get(Math.toIntExact(m)).getValue().compareTo(value) >= 0) {
+            if (data.get(Math.toIntExact(m)).getValue() >= value) {
                 right = m;
             }
             else left = m;
         }
         ArrayList<AccountData> result = new ArrayList<>();
         while (m < data.size()) {
-            if (data.get(Math.toIntExact(m)).getValue().compareTo(value) == 0) {
+            if (data.get(Math.toIntExact(m)).getValue() == value) {
                 result.add(data.get(Math.toIntExact(m)));
                 m++;
             }
